@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/iwaly/CLionProjects/for_semyon/cmake-build-debug",
-		"source" : "/home/iwaly/CLionProjects/for_semyon"
+		"build" : "/home/iwaly/for_semyon/cmake-build-debug",
+		"source" : "/home/iwaly/for_semyon"
 	},
 	"version" : 
 	{

@@ -1,4 +1,4 @@
-# Install script for directory: /home/iwaly/CLionProjects/for_semyon
+# Install script for directory: /home/iwaly/for_semyon
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/iwaly/CLionProjects/for_semyon/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/iwaly/for_semyon/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
