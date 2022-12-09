@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "for_semyon",
+					"name" : "numbers",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "for_semyon::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-for_semyon-Debug-f912cc387440528b0fb3.json",
-					"name" : "for_semyon",
+					"id" : "numbers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-numbers-Debug-cba27ed1c34a4590a329.json",
+					"name" : "numbers",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/iwaly/for_semyon/cmake-build-debug",
-		"source" : "/home/iwaly/for_semyon"
+		"build" : "/home/iwaly/for_semyon/numbers/cmake-build-debug",
+		"source" : "/home/iwaly/for_semyon/numbers"
 	},
 	"version" : 
 	{

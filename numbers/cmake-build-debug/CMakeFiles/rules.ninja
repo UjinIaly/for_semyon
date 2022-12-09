@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: for_semyon
+# Project: numbers
 # Configurations: Debug
 # =============================================================================
 # =============================================================================
@@ -14,7 +14,7 @@
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__for_semyon_Debug
+rule C_COMPILER__numbers_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/cc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule C_COMPILER__for_semyon_Debug
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__for_semyon_Debug
+rule C_EXECUTABLE_LINKER__numbers_Debug
   command = $PRE_LINK && /usr/bin/cc $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /snap/clion/218/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/iwaly/for_semyon -B/home/iwaly/for_semyon/cmake-build-debug
+  command = /snap/clion/218/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/iwaly/for_semyon/numbers -B/home/iwaly/for_semyon/numbers/cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "for_semyon"
+			"path" : "numbers"
 		}
 	],
 	"backtrace" : 1,
@@ -56,7 +56,7 @@
 			]
 		}
 	],
-	"id" : "for_semyon::@6890427a1f51a3e7e1df",
+	"id" : "numbers::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -72,8 +72,8 @@
 		],
 		"language" : "C"
 	},
-	"name" : "for_semyon",
-	"nameOnDisk" : "for_semyon",
+	"name" : "numbers",
+	"nameOnDisk" : "numbers",
 	"paths" : 
 	{
 		"build" : ".",

@@ -395,8 +395,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/iwaly/for_semyon/cmake-build-debug",
-		"source" : "/home/iwaly/for_semyon"
+		"build" : "/home/iwaly/for_semyon/numbers/cmake-build-debug",
+		"source" : "/home/iwaly/for_semyon/numbers"
 	},
 	"version" : 
 	{
