@@ -3,7 +3,7 @@
 #include <string.h>
 
 struct data{
-    char city[21];
+    char city[20];
     int day;
     float temperature;
     float wetness;
@@ -15,7 +15,6 @@ void check_and_print(FILE *file, struct data info[],char file_name[],char highes
         printf("error");
         return;
     }
-    char city[21];
     float max = 0;
     for(int i = 0; !feof(file);++i){
         fscanf(file,"%s",info[i].city);
@@ -27,12 +26,27 @@ void check_and_print(FILE *file, struct data info[],char file_name[],char highes
         printf("%.1f ",info[i].temperature);
         printf("%.2f ",info[i].wetness);
         printf("\n");
-        if(info[i].temperature>max){
-            max = info[i].temperature;
-            strcpy(city,info[i].city);
-        }
     }
-    strcpy(highest,city);
+    float average;
+    float temp = 0;
+    int size = 0;
+    for(int i = 0;i<3;++i){
+        for(int j = 0;j<3;++j){
+            if(info[j].city == info[i].city){
+                temp += info[j].temperature;
+                ++size;
+            }
+
+        }
+        temp/=size;
+        if(temp > average){
+            average = temp;
+            strcpy(highest,info[i].city);
+        }
+        temp = 0;
+        size = 0;
+    }
+
 
 }
 
