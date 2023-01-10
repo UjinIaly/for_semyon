@@ -1,182 +1,92 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
 
-// фукнция транспонирования матрицы, просто проходимся по матрице
-// только вместо [i][j] ставим [j][i] и выводим через printf("d",Matrix[i][j])
-// тут "d" значит  что мы выводим число формата int
-void transpose(int **Matrix, int lines, int columns){
-    for (int i = 0; i < columns; ++i)
-    {
-        for (int j = 0; j < lines; ++j)
-        {
+struct data{
+    char city[20];
+    int day;
+    float temperature;
+    float wetness;
+};
 
-            printf("%d ", Matrix[j][i]);
+int count_calc(FILE *file){
+    int count=0;
+    while(!feof(file)){
+        if(fgetc(file) == '\n'){
+            ++count;
         }
+    }
+    return count+1;
+}
+
+void check_and_print(FILE *file, struct data info[],char file_name[],char highest[]){
+    file = fopen("/home/iwaly/for_semyon/parcing/file.txt","r");
+    int count  = count_calc(file);
+    rewind(file);
+    printf("%d",count);
+    if(file == NULL) {
+        printf("error");
+        return;
+    }
+    for(int i = 0; !feof(file);++i){
+        fscanf(file,"%s",info[i].city);
+        fscanf(file,"%d",&info[i].day);
+        fscanf(file,"%f",&info[i].temperature);
+        fscanf(file,"%f",&info[i].wetness);
+        printf("%s ",info[i].city);
+        printf("%.d ",info[i].day);
+        printf("%.1f ",info[i].temperature);
+        printf("%.2f ",info[i].wetness);
         printf("\n");
     }
-}
-// Получение миноров
-int **get_matrix(int **Matrix, int size, int less_size){
-    int ** res = (int **)malloc((size - 1) * sizeof(int *));
-    for (int i = 0; i < size - 1; ++i)
-        res[i] = (int *)malloc((size- 1) * sizeof(int));
-    for (int i = 1; i < size; ++i) {
-        int k = 0;
-        for (int j = 0; j < size; ++j, ++k) {
-            if (j == less_size) {
-                --k;
-                continue;
+    //хранит в себе максимальную среднюю темпу
+    float average;
+    //сюда записывается сумма температуры за месяц в 1 городе
+    float temp = 0;
+    //количество измерений 1 города
+    int size = 0;
+    // 2 цикла потому что мы берём каждый город и складываем его измерения
+    //чтобы потом получить среднюю
+    for(int i = 0;i<count;++i){
+        for(int j = 0;j<count;++j){
+            if(info[j].city == info[i].city){
+                //складываем каждое измерение и считаем количество измерений
+                temp += info[j].temperature;
+                ++size;
             }
-            res[i - 1][k] = Matrix[i][j];
+
         }
-
-    }
-
-    return res;
-
-}
-
-//рекурсивное вычисление дискриминанта
-int determinant(int **Matrix, int size){
-    if (size == 1)
-        return Matrix[0][0];
-    if (size == 2)
-        return (Matrix[1][1] * Matrix[0][0]) - (Matrix[0][1] * Matrix[1][0]);
-    //ans - определитель, ans - коэффицент перед дискриминантом минора, он меняет знак так как находисят в степени
-    int ans = 0, sig = 1;
-    //матрица вычисляется разложением по строке и столбцу
-    for (int i = 0; i < size; ++i){
-        ans += (sig * Matrix[0][i] * determinant(get_matrix(Matrix, size, i),size - 1));
-        sig *= -1;
-    }
-    return ans;
-}
-// меняем местами элементы
-void swap(int **Matrix, int line1, int line2,int column)
-{
-    for (int i = 0; i < column; i++)
-    {
-        int temp = Matrix[line1][i];
-        Matrix[line1][i] = Matrix[line2][i];
-        Matrix[line2][i] = temp;
-    }
-}
-
-//нахождение ранга матрицы
-int get_rank(int **Matrix, int lines, int columns)
-{
-    int rank = columns;
-
-    for (int row = 0; row < rank; row++)
-    {
-        // Прежде чем мы перейдем к текущей строке 'row', мы сделаем
-        // так чтобы mat[row][0],....mat[row][row-1]
-        // были равны 0.
-
-        // Диагональный элемент не равен нулю
-        if (Matrix[row][row])
-        {
-            for (int col = 0; col < lines; col++)
-            {
-                if (col != row)
-                {
-                    // Это делает все значения текущего столбца равными 0,
-                    // кроме 'mat[row][row]'
-                    double res = (double)Matrix[col][row] /Matrix[row][row];
-                    for (int i = 0; i < rank; i++)
-                        Matrix[col][i] -= res * Matrix[row][i];
-                }
-            }
+        //считаем среднемесячную
+        temp/=size;
+        //если среднемесячная выше чем самая высокая на данных момент меняем её
+        if(temp > average){
+            //меняем значение самой высокой
+            average = temp;
+            //копируем в переменную
+            strcpy(highest,info[i].city);
         }
-
-            // Диагональный элемент уже равен нулю. Два случая возникать:
-            //1) Если под ним есть строка с ненулевым
-            // значением, затем меняем местами эту строку с той строкой
-            // и обработайте её
-            // 2) Если все элементы в текущем столбце меньше
-            // mat[r][row] равны 0, затем удаляем этот столбец
-            // заменив его на последний столбец и
-            // уменьшив количество столбцов на 1.
-        else
-        {
-            bool reduce = true;
-
-            /* Найдём ненулевой элемент в текущем
-                колонка  */
-            for (int i = row + 1; i < lines;  i++)
-            {
-                // Поменяем местами строку с ненулевым элементом
-                // с этой строкой.
-                if (Matrix[i][row])
-                {
-                    swap(Matrix, row, i, rank);
-                    reduce = false;
-                    break ;
-                }
-            }
-
-            // Если мы не нашли ни одной строки с ненулевым
-            // элемент в текущем столбце, значит все
-            // значения в этом столбце равны 0.
-            if (reduce)
-            {
-                // уменьшаем количество столбцов
-                rank--;
-
-                // скопируем последний столбец сюда
-                for (int i = 0; i < lines; i ++)
-                    Matrix[i][row] = Matrix[i][rank];
-            }
-
-            // Обработаем эту строку еще раз
-            row--;
-        }
-
-        // если нужно увидеть промежутчной результат, разкоментит эти строки
-        // display(mat, R, C);
-        // printf("\n");
+        temp = 0;
+        size = 0;
     }
-    return rank;
+
+
 }
+
+
+
 int main() {
-    int lines, columns, **Matrix;
+    struct data info[3];
+    char file_name[100];
+    scanf( "%s", file_name);
+    FILE *file = NULL;
+    char highest[21];
+    check_and_print(file,info,file_name,highest);
+    printf("%s",highest);
 
-    //ввод количества столбцов и строк
-    printf("Type the matrix lines:\n");
-    scanf("%d", &lines);
-    printf("Type the matrix columns:\n");
-    scanf("%d", &columns);
 
-    //выделяем память под строки
-    Matrix = (int **)malloc(lines * sizeof(int *));
 
-    // каждой строке выделяем место для столбцов
-    for (int i = 0; i < lines; ++i)
-        Matrix[i] = (int *)malloc(columns * sizeof(int));
 
-    //ввод элементов матрицы
-    for (int i = 0; i < lines; ++i)
-    {
-        for (int j = 0; j < columns; ++j)
-        {
-            printf("Type a number for <line: %d, column: %d>\n", i+1, j+1);
-            scanf("%d", &Matrix[i][j]);
-        }
-    }
-    //вывод введёной матрицы
-    for (int i = 0; i < lines; ++i)
-    {
-        for (int j = 0; j < columns; ++j)
-        {
-            printf("%d ", Matrix[i][j]);
-        }
-        printf("\n");
-    }
-    //функции
-    transpose(Matrix, lines, columns);
-    printf("%d\n", determinant(Matrix,lines));
-    printf("%d\n", get_rank(Matrix,lines,columns));
+
 
 
 }
