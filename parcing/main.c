@@ -28,7 +28,7 @@ void check_and_print(FILE *file, struct data info[],char file_name[],char highes
         printf("\n");
     }
     //хранит в себе максимальную среднюю темпу
-    float average;
+    float average = -40;
     //сюда записывается сумма температуры за месяц в 1 городе
     float temp = 0;
     //количество измерений 1 города
