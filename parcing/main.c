@@ -27,20 +27,30 @@ void check_and_print(FILE *file, struct data info[],char file_name[],char highes
         printf("%.2f ",info[i].wetness);
         printf("\n");
     }
+    //хранит в себе максимальную среднюю темпу
     float average;
+    //сюда записывается сумма температуры за месяц в 1 городе
     float temp = 0;
+    //количество измерений 1 города
     int size = 0;
+    // 2 цикла потому что мы берём каждый город и складываем его измерения
+    //чтобы потом получить среднюю
     for(int i = 0;i<3;++i){
         for(int j = 0;j<3;++j){
             if(info[j].city == info[i].city){
+                //складываем каждое измерение и считаем количество измерений
                 temp += info[j].temperature;
                 ++size;
             }
 
         }
+        //считаем среднемесячную
         temp/=size;
+        //если среднемесячная выше чем самая высокая на данных момент меняем её
         if(temp > average){
+            //меняем значение самой высокой
             average = temp;
+            //копируем в переменную
             strcpy(highest,info[i].city);
         }
         temp = 0;
