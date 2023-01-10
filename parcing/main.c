@@ -10,7 +10,7 @@ struct data{
 };
 
 void check_and_print(FILE *file, struct data info[],char file_name[],char highest[]){
-    file = fopen("/home/iwaly/for_semyon/parcing/file.txt","r");
+    file = fopen(file_name,"r");
     if(file == NULL){
         printf("error");
         return;
