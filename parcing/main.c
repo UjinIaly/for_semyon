@@ -67,7 +67,7 @@ int main() {
     char file_name[100];
     scanf( "%s", file_name);
     FILE *file = NULL;
-    char highest[21];
+    char highest[20];
     check_and_print(file,info,file_name,highest);
     printf("%s",highest);
 
