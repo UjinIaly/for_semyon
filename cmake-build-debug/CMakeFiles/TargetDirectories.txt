@@ -1,3 +1,0 @@
-/home/iwaly/for_semyon/cmake-build-debug/CMakeFiles/for_semyon.dir
-/home/iwaly/for_semyon/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/iwaly/for_semyon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
